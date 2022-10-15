@@ -1,0 +1,108 @@
+:root {
+  --background: rgba(0, 0, 0, 0.305);
+  --card-background: rgba(0, 0, 0, 0.305);
+  --ExtensionSize: 300px;
+}
+
+#InterpoleExtension {
+  bottom: 20px;
+  left: 20px;
+  display: grid;
+  gap: 20px;
+  flex-direction: column;
+}
+
+#_OpenButtonR,
+#_OpenButtonY {
+  border: none;
+  width: 70px;
+  aspect-ratio: 1/1.5;
+  opacity: 0.2;
+  cursor: pointer;
+  transition: all 0.5s;
+  background-size: cover;
+}
+
+#_OpenButtonR {
+  background-image: url("../IMG/RedNoticeFrLR.jpg");
+}
+
+#_OpenButtonY {
+  background-image: url("../IMG/YellowNoticeFrLR.jpg");
+}
+
+#_OpenButtonR:hover,
+#_OpenButtonY:hover {
+  opacity: 1;
+}
+
+#GroupsModal {
+  backdrop-filter: blur(19px);
+  border-radius: 9px;
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: var(--background);
+  width: 642px;
+  aspect-ratio: 1/1;
+  position: fixed;
+  left: calc(50% - var(--ExtensionSize));
+  top: calc(50% - var(--ExtensionSize));
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+#GroupsModal.active {
+  display: flex;
+}
+
+#ButtonsGroup {
+  position: fixed;
+  bottom: 5px;
+  width: 79px;
+  left: 5px;
+}
+
+#GroupsModal>div {
+  background-color: var(--card-background);
+  color: white;
+  display: flex;
+  margin: 10px;
+  width: 200px;
+  aspect-ratio: 1/1;
+  padding: 10px;
+  border-radius: 10px;
+  flex-direction: column;
+}
+
+#GroupsModal>div:hover {
+  background-color: rgba(0, 0, 0, 0.901);
+}
+
+#GroupsModal>div>img {
+  border-radius: 5px;
+  width: 100%;
+}
+
+#GroupsModal>div>p {
+  text-align: center;
+  transition: all 2s;
+}
+
+#GroupsModal::-webkit-scrollbar {
+  width: 5px;
+}
+
+#GroupsModal:nth-child(1)::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 0, 0);
+  border-radius: 5px;
+}
+
+#GroupsModal:nth-child(2)::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 255, 0);
+  border-radius: 5px;
+}
+
+#InterpoleExtension>* {
+  font-family: "Roboto";
+}

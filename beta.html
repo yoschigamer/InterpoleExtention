@@ -6,12 +6,33 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
+  <link rel="stylesheet" href="CSS/Style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 </head>
 
 <body>
   <section id="InterpoleExtension">
-    <button id="_OpenButtonR"></button>
-    <article>
+    <article id="GroupsModal">
+      <!--
+          <div id="Card">
+            <img style="border-radius: 5px; width: 80%;" id="InterpoleExtensionMenuCardImg" src="" alt="profilePicture" />
+            <p id="InterpoleExtensionCardinfos"></p>
+          </div>
+        -->
+      <!--
+          <div id="Card">
+            <img style="border-radius: 5px; width: 80%;" id="InterpoleExtensionMenuCardImg" src="" alt="profilePicture" />
+            <p id="InterpoleExtensionCardinfos"></p>
+          </div>
+        -->
+    </article>
+    <article id="GroupsModal">
+      <!--
+        <div id="Card">
+          <img style="border-radius: 5px; width: 80%;" id="InterpoleExtensionMenuCardImg" src="" alt="profilePicture" />
+          <p id="InterpoleExtensionCardinfos"></p>
+        </div>
+      -->
       <!--
         <div id="Card">
           <img style="border-radius: 5px; width: 80%;" id="InterpoleExtensionMenuCardImg" src="" alt="profilePicture" />
@@ -19,160 +40,13 @@
         </div>
       -->
     </article>
-
-    <button id="_OpenButtonY"></button>
-    <article>
-      <!--
-        <div id="Card">
-          <img style="border-radius: 5px; width: 80%;" id="InterpoleExtensionMenuCardImg" src="" alt="profilePicture" />
-          <p id="InterpoleExtensionCardinfos"></p>
-        </div>
-      -->
-    </article>
+    <div id="ButtonsGroup">
+      <button id="_OpenButtonR"></button>
+      <button id="_OpenButtonY"></button>
+    </div>
   </section>
 </body>
 
+<script src="./JS/TEMP.js"></script>
+
 </html>
-
-<style>
-  :root {
-    --background: rgba(0, 0, 0, 0.463);
-    --card-background: red;
-    --ExtensionSize: 300px;
-  }
-
-  #InterpoleExtension {
-    position: fixed !important;
-    bottom: 20px;
-    left: 20px;
-    display: grid;
-    gap: 20px;
-    flex-direction: column;
-  }
-
-  #InterpoleExtension>button {
-    border: none;
-    width: 70px;
-    aspect-ratio: 1/1.5;
-    opacity: 0.2;
-    cursor: pointer;
-    transition: all 0.5s;
-    background-image: url("./IMG/RedNoticeFrLR.jpg");
-    background-size: cover;
-  }
-
-  #InterpoleExtension>button:nth-child(3) {
-    background-image: url("./IMG/YellowNoticeFrLR.jpg");
-  }
-
-  #InterpoleExtension>button:hover {
-    opacity: 1;
-  }
-
-  #InterpoleExtension>article {
-    display: none;
-    flex-wrap: wrap;
-    justify-content: center;
-    background-color: var(--background);
-
-    width: 642px;
-    aspect-ratio: 1/1;
-    position: absolute;
-    left: calc(50px); /*left: calc(50% - var(--ExtensionSize))*/
-    top: calc(50px); /*top: calc(50% - var(--ExtensionSize));*/
-    overflow: scroll;
-    overflow-x: hidden;
-  }
-
-  #InterpoleExtension>article.active {
-    display: flex;
-  }
-
-
-  #InterpoleExtension>article>div {
-    background-color: var(--card-background);
-    display: flex;
-    margin: 10px;
-    width: 200px;
-    aspect-ratio: 1/1;
-    padding: 10px;
-    border-radius: 10px;
-    flex-direction: column;
-  }
-
-  #InterpoleExtension>article>div>img {
-    border-radius: 5px;
-    width: 100%;
-  }
-</style>
-
-<script>
-  async function getIndex() {
-    try {
-      let response = await fetch(
-        "https://ws-public.interpol.int/notices/v1/red"
-      );
-      if (response.ok) {
-        let data = await response.json();
-        return data;
-      } else {
-        console.log(response.status);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  getIndex().then(async (data) => {
-    i = 0;
-    while (i < data._embedded.notices.length) {
-
-      CardCreation();
-
-      Putdata(data);
-
-      console.log(
-        data._embedded.notices[i],
-        `${1 + i}/${data._embedded.notices.length}`
-      );
-      i++;
-    }
-  });
-
-  function CardCreation() {
-    const Card = document.createElement('div');
-    Card.id = "Card";
-    Card.innerHTML = `<img id="InterpoleExtensionMenuCardImg" class="InterpoleExtensionMenuCardImg${[i]}" src="" alt="profilePicture" />
-      <p id="InterpoleExtensionCardinfos" class="InterpoleExtensionCardinfos${[i]}"></p>`
-    document.getElementById('InterpoleExtension').getElementsByTagName("article")[0].appendChild(Card); // on recupère la balise artice de l'ID "InterpoleExtension"
-  }
-
-  function Putdata(data) {
-    document.querySelector(`.InterpoleExtensionMenuCardImg${[i]}`).src = data._embedded.notices[i]._links.thumbnail.href
-    document.querySelector(`.InterpoleExtensionCardinfos${[i]}`).innerHTML = `${data._embedded.notices[i].forename}
-    <br> ${data._embedded.notices[i].name} 
-    <br> ${data._embedded.notices[i].entity_id} 
-    <br> ${data._embedded.notices[i].date_of_birth}
-    <br> ${data._embedded.notices[i].nationalities}
-    <br> ${data._embedded.notices[i].date_of_birth}`
-  }
-  getIndex();
-
-  _OpenButtonR.addEventListener('click', () => {
-    if (document.getElementById('InterpoleExtension').getElementsByTagName('article')[0].classList.contains('active')) {
-      document.getElementById('InterpoleExtension').getElementsByTagName("article")[0].classList.remove('active');
-    }
-    else {
-      document.getElementById('InterpoleExtension').getElementsByTagName("article")[0].classList.add('active');
-    }
-  });
-
-  _OpenButtonY.addEventListener('click', () => {
-    if (document.getElementById('InterpoleExtension').getElementsByTagName('article')[1].classList.contains('active')) {
-      document.getElementById('InterpoleExtension').getElementsByTagName("article")[1].classList.remove('active');
-    }
-    else {
-      document.getElementById('InterpoleExtension').getElementsByTagName("article")[1].classList.add('active');
-    }
-  });
-</script>
